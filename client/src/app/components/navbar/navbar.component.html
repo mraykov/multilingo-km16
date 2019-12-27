@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="#">Translator</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <button class="btn nav-link" [routerLink]="['/home']">
+            {{ this.uiBlocks.HOME }}
+          </button>
+        </li>
+        <ng-template [ngIf]="loggedIn">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn nav-link" id="adminDropDown" ngbDropdownToggle>
+              {{ this.uiBlocks.MY_PROFILE }}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="adminDropDown">
+              <button ngbDropdownItem class="btn" [routerLink]="['/user', 'articles']">
+                {{ this.uiBlocks.MY_ARTICLES }}
+              </button>
+              <button ngbDropdownItem class="btn" [routerLink]="['/user', 'settings']">
+                {{ this.uiBlocks.SETTINGS }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+        <li>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn nav-link" id="articleDropDown" ngbDropdownToggle>
+                {{ this.uiBlocks.ARTICLES || 'Articles' }}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="articleDropDown">
+              <button ngbDropdownItem class="btn" [routerLink]="['/articles']">
+                {{ this.uiBlocks.SHOW_ALL_ARTICLES || 'Show all articles' }}
+              </button>
+              <button *ngIf="this.loggedIn" ngbDropdownItem class="btn"  [routerLink]="['/articles', 'create']">
+                {{ this.uiBlocks.CRATE_ARTICLE || 'Create Article' }}
+              </button>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button class="btn nav-link" *ngIf="
+              loggedIn && (user.role === 'Editor' || user.role === 'Admin')
+            " [routerLink]="['/translations']">
+            {{this.uiBlocks.TRANSLATIONS || 'Translations'}}
+          </button>
+        </li>
+        <ng-template [ngIf]="loggedIn && user.role === 'Admin'">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn nav-link" id="adminDropDown" ngbDropdownToggle>
+              {{ this.uiBlocks.ADMINISTRATOR }}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="adminDropDown">
+              <button ngbDropdownItem class="btn" [routerLink]="['/admin', 'ui-blocks']">
+                {{ this.uiBlocks.UI_BLOCKS }}
+              </button>
+              <button ngbDropdownItem class="btn" [routerLink]="['/admin', 'users']">
+                {{ this.uiBlocks.USERS }}
+              </button>
+              <button ngbDropdownItem class="btn" [routerLink]="['/admin', 'languages']">
+                {{ this.uiBlocks.LANGUAGES }}
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <ng-template [ngIf]="!loggedIn">
+            <button class="btn nav-link" (click)="loginModal(content)">
+              {{ this.uiBlocks.LOGIN }}
+            </button>
+          </ng-template>
+          <ng-template [ngIf]="loggedIn">
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn nav-link" id="adminDropDown" ngbDropdownToggle>
+                {{ this.user.username }}
+              </button>
+              <div ngbDropdownMenu aria-labelledby="logOutDropDown">
+                <button ngbDropdownItem class="btn" (click)="triggerLogout()">
+                  {{ this.uiBlocks.LOGOUT }}
+                </button>
+              </div>
+            </div>
+           
+          </ng-template>
+        </li>
+      </ul >
+      <ul class="empty-ul">
+        <li>
+          
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<ng-template #content let-modal>
+  <app-login></app-login>
+</ng-template>

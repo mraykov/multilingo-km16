@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="row">
+    <div class="mt-4">
+      <div class="col-12">
+        <h1 class="h3">{{ this.uiBlocks.MY_PROFILE }}</h1>
+      </div>
+    </div>
+    <ngb-tabset class="col-12 mt-5">
+      <ngb-tab title="{{ this.uiBlocks.MY_PROFILE }}">
+        <ng-template ngbTabContent>
+          <div
+            class="mt-4 border border-info border-left-0 border-right-0 rounded p-3"
+          >
+            <ul>
+              <li>
+                <b>{{ this.uiBlocks.USER }}:</b>
+                {{ this.userDetails.firstName }} {{ this.userDetails.lastName }}
+              </li>
+              <li>
+                <b>{{ this.uiBlocks.USERNAME }}:</b>
+                {{ this.userDetails.username }}
+              </li>
+              <li>
+                <b>{{ this.uiBlocks.USER_ID }}:</b> {{ this.userDetails.id }}
+              </li>
+              <li>
+                <b>{{ this.uiBlocks.ROLE }}:</b>
+                {{ this.userDetails.role.roleName }}
+              </li>
+              <li>
+                <b>{{ this.uiBlocks.EMAIL }}:</b> {{ this.userDetails.email }}
+              </li>
+              <li>
+                <b>{{ this.uiBlocks.REGISTERED_ON }}:</b> {{ this.createDate }}
+              </li>
+              <li>
+                <b>{{ this.uiBlocks.PREFERRED_LANGUAGE }}:</b>
+                {{ this.preferredLanguage }}
+              </li>
+              <li>
+                <div class="row justify-content-start">
+                  <div class="col-sm-4">
+                    <div class="btn-group dropright">
+                      <button
+                        type="button"
+                        class="btn btn-sm border border-info btn-outline-info dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        {{ this.uiBlocks.CHANGE_PREFERRED_LANGUAGE }}
+                      </button>
+                      <div class="dropdown-menu">
+                        <button
+                          *ngFor="let supported of this.supportedLanguages"
+                          class="btn dropdown-item"
+                          (click)="this.changeLanguage(supported)"
+                        >
+                          {{ supported.language }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="{{ this.uiBlocks.CHANGE_PASSWORD }}">
+        <ng-template ngbTabContent>
+          <form [formGroup]="changePassForm" class="mt-4">
+            <input
+              formControlName="oldPassword"
+              type="password"
+              placeholder="{{ this.uiBlocks.OLD_PASSWORD }}"
+              class="form-control"
+            />
+            <span
+              *ngIf="
+                !!this.changePassForm.controls.oldPassword?.errors?.minlength
+              "
+              >{{ this.uiBlocks.ERROR_PASSWORD }}</span
+            >
+            <input
+              formControlName="newPassword"
+              type="password"
+              placeholder="{{ this.uiBlocks.NEW_PASSWORD }}"
+              class="form-control"
+            />
+            <span
+              *ngIf="
+                !!this.changePassForm.controls.newPassword?.errors &&
+                this.changePassForm.controls.newPassword?.touched
+              "
+              >{{ this.uiBlocks.REG_PASSWORD_ERROR }}</span
+            >
+            <input
+              formControlName="confirmPassword"
+              type="password"
+              placeholder="{{ this.uiBlocks.CONFIRM_PASSWORD }}"
+              class="form-control"
+            />
+            <span
+              *ngIf="
+                !!this.changePassForm.controls.confirmPassword?.errors
+                  ?.mustMatch
+              "
+              >{{ this.uiBlocks.PASSWORD_MATCH_ERROR }}</span
+            >
+            <br />
+            <button
+              class="btn btn-info"
+              type="submit"
+              (click)="this.changePassword()"
+              [disabled]="this.changePassForm.invalid"
+            >
+              {{ this.uiBlocks.CHANGE_PASSWORD }}
+            </button>
+          </form>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

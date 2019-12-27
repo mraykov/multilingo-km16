@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="mt-4" *ngIf="this.isOririginalArticle">
+    <h1 class="h3">{{ this.uiBlocks.ORIGIANL_ARTICLE || "Original Article" }}</h1>
+  </div>
+  <div class="mt-4" *ngIf="!this.isOririginalArticle">
+    <h1 class="h3">{{ this.uiBlocks.TRANSLATED_ARTICLE || "Translated Article" }}</h1>
+  </div>
+  <div *ngIf="this.isArticleDeleted">
+    <p>{{ this.uiBlocks.MSG_DELETE_ARTICLE || 'The article was deleted!' }}</p>
+  </div>
+  <div *ngIf="this.article && !this.isArticleDeleted" class="card justify-content-sm-center mt-5">
+    <div class="card-body" style="width: 100%;">
+      <h5 class="card-title">{{this.article.title.text}}
+      </h5>
+      <h6 class="card-subtitle mb-2 text-muted justify-content-between">
+        <span>
+          {{ this.uiBlocks.PUBLISHED_ON || 'Published on' }} {{this.article.datePublish}} {{ this.uiBlocks.BY || 'by' }}
+          {{this.article.user || this.article.author.username}}
+        </span>
+        <span class="float-right">
+          {{ this.getArticleLanguage() }}
+        </span>
+      </h6>
+      <p class="card-text text-justify">{{this.article.content.text}}</p>
+      <div class="col-sm-12 row justify-content-between">
+        <button *ngIf="!this.isOririginalArticle && this.user && this.user.username === this.article.user"
+          class="btn border border-info rounded-pill btn-outline-info"
+          (click)="this.editOriginalArticle()">{{ this.uiBlocks.EDIT || 'Edit' }}</button>
+        <button *ngIf="this.isOririginalArticle && this.user && this.user.username === this.article.user"
+          class="btn border border-info rounded-pill btn-outline-info"
+          (click)="openArticleTextareaModal()">{{ this.uiBlocks.UPDATE || 'Update' }}</button>
+        <button *ngIf="this.isOririginalArticle && this.user && this.user.username === this.article.user"
+          class="btn ml-2 border border-info rounded-pill btn-outline-info"
+          (click)="returnBack()">{{ this.uiBlocks.BACK || 'Back' }}</button>
+        <button *ngIf="this.isOririginalArticle && this.user && this.user.username === this.article.user"
+          class="btn border border-danger rounded-pill btn-outline-danger"
+          (click)="this.deleteArticle()">{{ this.uiBlocks.DELETE || 'Delete' }}</button>
+        <app-rating *ngIf="!this.isOririginalArticle" class="float-right" [translationId]="this.article.content.id">
+        </app-rating>
+      </div>
+    </div>
+  </div>
+</div>

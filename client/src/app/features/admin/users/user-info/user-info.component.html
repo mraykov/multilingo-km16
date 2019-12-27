@@ -1,0 +1,136 @@
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <div class="row">
+      <div class="col-sm-6">
+        <span class="h5  "
+          >{{ this.user.firstName }} {{ this.user.lastName }}</span
+        >
+      </div>
+      <div class="col-sm-6">
+        <span *ngIf="this.user.deleted" class="badge badge-danger"
+          >{{ this.uiBlocks.DELETED }}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body row">
+    <div class="col-sm-6">
+      <h2 class="h6">{{ this.uiBlocks.USERNAME }}: {{ this.user.username }}</h2>
+      <h2 class="card-text h6">
+        {{ this.uiBlocks.REGISTERED_ON }}: {{ this.user.dateRegistration }}
+      </h2>
+      <h2 class="card-text h6">
+        {{ this.uiBlocks.ROLE }}: {{ this.user.role.roleName }}
+      </h2>
+    </div>
+    <div class="col-sm-6 d-flex align-items-center justify-content-around">
+      <button
+        class="btn btn-sm border border-info btn-outline-info rounded-pill btn-block mt-2 mr-1"
+        (click)="this.openModal(roleState, 'sm')"
+      >
+        {{ this.uiBlocks.ROLE }}
+      </button>
+      <button
+        class="btn btn-sm border border-danger btn-outline-danger rounded-pill btn-block"
+        *ngIf="!this.user.deleted && this.user.role.roleName !== 'Admin'"
+        (click)="this.deleteModal()"
+      >
+        {{ this.uiBlocks.DELETE }}
+      </button>
+      <button
+        class="btn btn-sm border border-danger btn-outline-danger rounded-pill btn-block"
+        *ngIf="this.user.deleted || this.user.role.roleName === 'Admin'"
+        disabled
+      >
+        {{ this.uiBlocks.DELETE }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #roleState let-modal>
+  <div class="modal-header text-primary align-items-center">
+    <h6 class="modal-title">        {{ this.uiBlocks.CHANGE_ROLE }}
+    </h6>
+    <button
+      type="button"
+      class="btn"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light">
+    <div class="row justify-content-around mt-3">
+      <div class="col-4 d-flex align-items-center">
+        <span>{{ this.uiBlocks.CONTRIBUTOR }}</span>
+      </div>
+      <div class="col-4 d-flex align-items-center justify-content-center">
+        <span
+          *ngIf="this.user.role.roleName === 'Contributor'"
+          class="badge badge-success"
+        >
+        {{ this.uiBlocks.ACTIVE }}
+        </span>
+        <span
+          *ngIf="this.user.role.roleName !== 'Contributor'"
+          aria-hidden="true"
+        ></span>
+      </div>
+      <div class="col-4 d-flex align-items-center justify-content-center">
+        <button class="btn border border-success btn-outline-success" (click)="this.changeRole('Contributor')" [disabled]="this.userLoged.id === this.user.id || this.user.deleted">
+          {{ this.uiBlocks.ACTIVATE }}
+        </button>
+        <!-- <button *ngIf="this.userLoged.id === this.user.id" class="btn border border-success btn-outline-success" disabled>
+            Activate
+          </button> -->
+      </div>
+    </div>
+    <div class="row justify-content-around mt-3">
+        <div class="col-4 d-flex align-items-center">
+          <span>{{ this.uiBlocks.EDITOR }}</span>
+        </div>
+        <div class="col-4 d-flex align-items-center justify-content-center">
+          <span
+            *ngIf="this.user.role.roleName === 'Editor'"
+            class="badge badge-success"
+          >
+          {{ this.uiBlocks.ACTIVE }}
+          </span>
+          <span
+            *ngIf="this.user.role.roleName !== 'Editor'"
+            aria-hidden="true"
+          ></span>
+        </div>
+        <div class="col-4 d-flex align-items-center justify-content-center">
+          <button class="btn border border-success btn-outline-success" (click)="this.changeRole('Editor')" [disabled]="this.userLoged.id === this.user.id || this.user.deleted">
+            {{ this.uiBlocks.ACTIVATE }}
+          </button>
+        </div>
+      </div><div class="row justify-content-around mt-3">
+          <div class="col-4 d-flex align-items-center">
+            <span>{{ this.uiBlocks.ADMINISTRATOR }}</span>
+          </div>
+          <div class="col-4 d-flex align-items-center justify-content-center">
+            <span
+              *ngIf="this.user.role.roleName === 'Admin'"
+              class="badge badge-success"
+            >
+            {{ this.uiBlocks.ACTIVE }}
+            </span>
+            <span
+              *ngIf="this.user.role.roleName !== 'Admin'"
+              aria-hidden="true"
+            ></span>
+          </div>
+          <div class="col-4 d-flex align-items-center justify-content-center">
+            <button class="btn border border-success btn-outline-success" (click)="this.changeRole('Admin')" [disabled]="this.userLoged.id === this.user.id || this.user.deleted">
+              {{ this.uiBlocks.ACTIVATE }}
+
+            </button>
+          </div>
+        </div>
+  </div>
+</ng-template>

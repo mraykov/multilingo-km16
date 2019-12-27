@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ this.uiBlocks.TRANSLATION || 'Translation' }}</h4>
+  <button class="btn" (click)="close('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form *ngIf="this.translation" [formGroup]="translationForm">
+    <div class="form-group">
+      <label>{{ this.uiBlocks.EDIT_TRANSLATION || 'Edit translation' }}</label>
+      <textarea class="form-control" rows="{{this.rows()}}" formControlName="translation"></textarea>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn col-sm-2 border border-info rounded-pill btn-outline-info" (click)="save('Save click')">{{ this.uiBlocks.SAVE || 'Save' }}</button>
+</div>

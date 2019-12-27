@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="my-4">
+    <h1 class="h4">{{ this.uiBlocks.TRANSLATIONS || "Translations" }}</h1>
+  </div>
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">
+          <input class="form-control" type="text" [(ngModel)]="this.filterText" (input)="searchTranslations()" placeholder="{{ this.uiBlocks.SEARCH_IN_TRANSLATION || 'Search in translation'}}" />
+        </th>
+        <th scope="col">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownTranslation" ngbDropdownToggle>
+              {{ this.getLanguage(this.currentTranslationsLang) }}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownTranslation">
+              <div *ngFor="let lang of this.supportedLanguages">
+                <button *ngIf="lang.language !== this.currentTranslationsLang" ngbDropdownItem
+                  (click)="this.getTranslationsByLang(lang.language)">
+                  {{ this.getLanguage(lang.language) }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </th>
+        <th scope="col">
+          <input class="form-control" type="text" [(ngModel)]="this.filterTranslation" (input)="searchTranslations()"  placeholder="{{ this.uiBlocks.SEARCH_IN_TRANSLATION || 'Search in translation'}}"/>
+        </th>
+        <th scope="col">
+          <input class="form-control" type="text" [(ngModel)]="this.filterType" (input)="searchTranslations()"  placeholder="{{ this.uiBlocks.SEARCH_IN_TYPE || 'Search in type'}}"/>
+        </th>
+        <th scope="col"></th>
+      </tr>
+      <tr>
+        <th scope="col" appSortable="id" (sort)="onSort($event)">#</th>
+        <th scope="col" appSortable="text" (sort)="onSort($event)">
+          {{ this.uiBlocks.ORIGINAL_TRANSLATION || "Original Text" }}
+        </th>
+        <th scope="col" appSortable="targetLanguage" (sort)="onSort($event)">
+          {{ this.uiBlocks.TRANSLATION_LANGUAGE || "Translation Language" }}
+        </th>
+        <th scope="col" appSortable="translation" (sort)="onSort($event)">
+          {{ this.uiBlocks.TRANSLATION || "Translation" }}
+        </th>
+        <th scope="col" appSortable="type" (sort)="onSort($event)">
+          {{ this.uiBlocks.TYPE || "Type" }}
+        </th>
+        <th scope="col"></th>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let translation of translations; index as i">
+        <th scope="row">{{ this.translation.id }}</th>
+        <td>{{ translation.text.slice(0, 30) }}</td>
+        <td>{{ this.getLanguage(this.translation.targetLanguage) }}</td>
+        <td>{{ translation.translation.slice(0, 30) }}</td>
+        <td>{{ translation.type }}</td>
+        <td class="btn btn-sm btn-outline-info" (click)="this.editTranslation(translation)">
+          {{ this.uiBlocks.EDIT || "Edit" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

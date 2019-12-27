@@ -1,0 +1,23 @@
+<div class="container justify-content-between">
+  <div class="mt-4">
+    <h1 class="h4">{{ this.uiBlocks.ORIGINAL_TEXT_TRANSLATION_TEXT || "Original text / Translated text" }}</h1>
+  </div>
+  <div class="row">
+    <div *ngIf="this.translation" class="card justify-content-sm-center mt-5 col-sm-6">
+      <div class="card-body" style="width: 100%;">
+        <h6 class="card-subtitle mb-2 text-muted">{{ this.uiBlocks.WROTE_ON || 'Wrote on' }}
+          {{this.translation.originLanguage}}</h6>
+        <p class="card-text text-justify">{{this.translation.text}}</p>
+      </div>
+    </div>
+    <div *ngIf="this.translation" class="card justify-content-sm-center mt-5 col-sm-6">
+      <div class="card-body" style="width: 100%;">
+        <h6 class="card-subtitle mb-2 text-muted">{{ this.uiBlocks.TRANSLATED_ON || 'Translated on' }}
+          {{this.translation.targetLanguage}}</h6>
+        <p class="card-text text-justify">{{this.translation.translation}}</p>
+        <button class="btn border border-info rounded-pill btn-outline-info"
+          (click)="this.editTranslation()">{{ this.uiBlocks.EDIT || 'Edit' }}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="modal-body container pt-0 pb-0">
+    <div class="row">
+      <div class="login-img col-6 pl-0">
+        <img src="../../../assets/images/login-croped.jpg" />
+      </div>
+      <div class="login-form col-6 h-100">
+        <ngb-tabset justify="center">
+          <ngb-tab title={{this.uiBlocks.LOGIN}}>
+            <ng-template ngbTabContent>
+              <form [formGroup]="loginForm">
+                <input
+                  formControlName="username"
+                  type="text"
+                  placeholder= {{this.uiBlocks.ENTER_USERNAME}}
+                  class="form-control"
+                />
+                <span *ngIf="!!loginForm.controls.username?.errors?.minlength"
+                  >{{this.uiBlocks.ERROR_USERNAME}}</span
+                >
+                <input
+                  formControlName="password"
+                  type="password"
+                  placeholder="********"
+                  class="form-control"
+                />
+                <span *ngIf="!!loginForm.controls.password?.errors?.minlength"
+                  >{{this.uiBlocks.ERROR_PASSWORD}}</span
+                >
+                <br />
+                <button class="btn btn-info" type="submit" (click)="login()" [disabled]="this.loginForm.invalid">
+                  {{this.uiBlocks.LOGIN}}
+                </button>
+              </form>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle><b>{{this.uiBlocks.REGISTER}}</b></ng-template>
+            <ng-template ngbTabContent>
+              <form [formGroup]="registerForm">
+                <input
+                  formControlName="username"
+                  type="text"
+                  placeholder={{this.uiBlocks.USERNAME}}
+                  class="form-control"
+                />
+                <span
+                  *ngIf="!!this.registerForm.controls.username?.errors?.minlength"
+                  >{{this.uiBlocks.ERROR_USERNAME}}</span
+                >
+                <input
+                  formControlName="firstName"
+                  type="text"
+                  placeholder={{this.uiBlocks.FIRSTNAME}}
+                  class="form-control"
+                />
+                <span
+                  *ngIf="!!this.registerForm.controls.firstName?.errors?.required && (registerForm.controls.firstName?.touched)"
+                  >{{this.uiBlocks.FIRSTNAME_ERROR}}</span
+                >
+                <input
+                  formControlName="lastName"
+                  type="text"
+                  placeholder={{this.uiBlocks.LASTNAME}}
+                  class="form-control"
+                />
+                <span
+                  *ngIf="!!this.registerForm.controls.lastName?.errors?.required && (registerForm.controls.lastName?.touched)"
+                  >{{this.uiBlocks.LASTNAME_ERROR}}</span
+                >
+                <input
+                  formControlName="email"
+                  type="email"
+                  placeholder="Email"
+                  class="form-control"
+                />
+                <span *ngIf="!!this.registerForm.controls.email?.errors?.email"
+                  >{{this.uiBlocks.EMAIL_ERROR}}</span
+                >
+                <input
+                  formControlName="password"
+                  type="password"
+                  placeholder= {{this.uiBlocks.ENTER_PASSWORD}}
+                  class="form-control"
+                />
+                <span
+                  *ngIf="!!this.registerForm.controls.password?.errors && registerForm.controls.password?.touched"
+                  >{{this.uiBlocks.REG_PASSWORD_ERROR}}</span
+                >
+                <input
+                  formControlName="confirmPassword"
+                  type="password"
+                  placeholder={{this.uiBlocks.CONFIRM_PASSWORD}}
+                  class="form-control"
+                />
+                <span
+                  *ngIf="
+                    !!this.registerForm.controls.confirmPassword?.errors?.mustMatch
+                  "
+                  >{{this.uiBlocks.PASSWORD_MATCH_ERROR}}</span
+                >
+                <br />
+                <button
+                  class="btn btn-info"
+                  type="submit"
+                  (click)="register()"
+                  
+                >
+                {{this.uiBlocks.REGISTER}}
+                </button>
+              </form>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+  

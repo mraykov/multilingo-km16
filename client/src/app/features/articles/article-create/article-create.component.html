@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="mt-4">
+    <h1 class="h3">{{ this.uiBlocks.CRATE_ARTICLE || 'Create article' }}</h1>
+  </div>
+  <div class="row">
+    <div class="card col-sm-12 mt-5">
+      <div class="card-body" style="width: 100%;">
+        <p class="subtitle float-right detectedmsg">{{this.detectedLangButton()}}</p>
+        <!-- detected language -->
+        <div class="d-inline-block mx-1">
+          <button class="btn btn-outline-primary" (click)="this.detectLanguage()">{{this.uiBlocks.DETECT}}</button>
+        </div>
+        <div ngbDropdown class="d-inline-block mx-1">
+          <button class="btn btn-outline-primary" id="dropdownCreateArticle"
+            ngbDropdownToggle>{{ this.getLanguage(this.currentLanguage) }}</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownCreateArticle">
+            <!-- rest languages in dropdown -->
+            <div *ngFor="let lang of this.supportedLanguages">
+              <button *ngIf="lang.language !== this.currentLanguage" ngbDropdownItem
+                (click)="this.setCurrentLang(lang.language)">{{ this.getLanguage(lang.language) }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body" style="width: 100%;">
+        <form [formGroup]="articleForm">
+          <div class="form-group">
+            <label>{{ this.uiBlocks.CREATE_ARTICLE_TITLE || 'Create article title' }}</label>
+            <textarea class="form-control" rows="1" formControlName="title"
+              (input)="this.clearDetectedLanguages()" placeholder="{{ this.uiBlocks.INPUT_TEXT_FOR_TITLE || 'Input text for title...'}}"></textarea>
+            <span
+              *ngIf="!!articleForm.controls.title?.errors?.minlength">{{ 'Title should be at least 2 characters long.'}}</span>
+          </div>
+          <div class="form-group">
+            <label>{{ this.uiBlocks.CREATE_ARTICLE_CONTENT || 'Create article content' }}</label>
+            <textarea class="form-control" rows="10" formControlName="content"
+              (input)="this.clearDetectedLanguages()" placeholder="{{ this.uiBlocks.INPUT_TEXT_FOR_CONTENT || 'Input text for content...'}}"></textarea>
+            <span
+              *ngIf="!!articleForm.controls.content?.errors?.minlength">{{ 'Content should be at least 6 characters long.'}}</span>
+          </div>
+        </form>
+        <button class="btn col-sm-2 border border-info rounded-pill btn-outline-info"
+          (click)="createArticle()">{{ this.uiBlocks.CREATE || 'Create' }}</button>
+      </div>
+    </div>
+  </div>
+</div>

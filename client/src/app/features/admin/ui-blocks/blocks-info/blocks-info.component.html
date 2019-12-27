@@ -1,0 +1,63 @@
+<div class="row justify-content-between w-100 p-2 mb-1 border rounded border-info border-top-0 border-left-0 border-right-0 align-items-center container-hover">
+  <div class="col-6">{{ block.key }}</div>
+  <div class=" col-6 d-flex justify-content-end">
+    <button class="btn border border-info btn-outline-info" (click)="openModal(uiModal, 'lg')">
+      {{ this.uiBlocks.DETAILS }}
+    </button>
+  </div>
+</div>
+<ng-template #uiModal let-modal>
+  <div class="modal-header text-primary align-items-center">
+    <h6 class="modal-title">{{ this.uiBlocks.UI_BLOCKS }}</h6>
+    <button
+      type="button"
+      class="btn"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body bg-light">
+    <div class="row justify-content-center">
+      <form [formGroup]="updateBlock" class="col-sm-12" >
+        <div class="form-group" class="col-sm-12 input-group mb-3">
+          <input
+            type="text"
+            formControlName="key"
+            class="form-control mr-3"
+            aria-label="UI Block Key"
+            aria-describedby="button-addon1"
+            readonly
+          />
+          <input
+            formControlName="content"
+            type="text"
+            class="form-control mr-3"
+            aria-label="UI Block Value"
+            aria-describedby="button-addon1"
+            [readonly]="!this.edit"
+          />
+          <button
+            class="btn btn-primary"
+            type="button"
+            id="button-addon1"
+            *ngIf="!this.edit"
+            (click)="this.toggle()"
+          >
+            {{ this.uiBlocks.EDIT }}
+          </button>
+          <button
+            class="btn btn-primary"
+            type="button"
+            id="button-addon1"
+            *ngIf="this.edit"
+            (click)="this.save()"
+          >
+            {{ this.uiBlocks.SAVE }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

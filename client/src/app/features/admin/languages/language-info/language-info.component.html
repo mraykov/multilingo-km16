@@ -1,0 +1,24 @@
+<div class="row justify-content-around border border-info border-top-0 border-left-0 border-right-0 container-hover mt-2 pt-1 pb-2">
+  <div class="col-1 d-flex align-items-center justify-content-center">
+    {{ this.language.id }}
+  </div>
+  <div class="col-3 d-flex align-items-center">
+    {{ this.language.language }}
+  </div>
+  <div class="col-1 d-flex align-items-center justify-content-center">
+    <span *ngIf="this.language.isActive" class="badge badge-success"
+      >{{this.uiBlocks.ACTIVE}}</span
+    >
+    <span *ngIf="!this.language.isActive" class="badge badge-danger"
+      >{{this.uiBlocks.INACTIVE}}</span
+    >
+  </div>
+  <div class="col-7 d-flex justify-content-center">
+    <button class="btn border-success btn-outline-success rounded-pill mr-1" (click)="this.changeStatus()">
+      {{this.uiBlocks.CHANGE_STATUS}}
+    </button>
+    <button class="btn border-danger btn-outline-danger rounded-pill" (click)="this.delete()">
+      {{this.uiBlocks.DELETE}}
+    </button>
+  </div>
+</div>

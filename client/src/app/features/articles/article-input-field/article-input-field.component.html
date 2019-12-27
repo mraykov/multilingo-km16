@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ this.uiBlocks.ARTICLE || 'Article' }}</h4>
+  <button class="btn" (click)="close('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form *ngIf="this.article" [formGroup]="articleForm">
+    <div class="form-group">
+      <label>{{ this.uiBlocks.UPDATE_ARTICLE_TITLE || 'Update article title' }}</label>
+      <textarea class="form-control" rows="1" formControlName="title"></textarea>
+    </div>
+    <div class="form-group">
+      <label>{{ this.uiBlocks.UPDATE_ARTICLE_CONTENT || 'Update article content' }}</label>
+      <textarea class="form-control" rows="10" formControlName="content"></textarea>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn col-sm-2 border border-info rounded-pill btn-outline-info" (click)="save('Save click')">{{ this.uiBlocks.SAVE || 'Save' }}</button>
+</div>

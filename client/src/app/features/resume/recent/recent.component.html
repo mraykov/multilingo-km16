@@ -1,0 +1,35 @@
+<div class="row">
+  <app-search
+    class="col-8 offset-2 mt-5"
+    (search)="this.filterArticles($event)"
+  ></app-search>
+</div>
+<div class="row justify-content-center">
+  <div class="mt-4">
+    <div class="col-12">
+      <h1>{{ this.uiBlocks.MOST_RECENT_ARTICLES }}</h1>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center mt-5">
+  <app-single-resume
+    class="card-deck col-sm-4 d-flex justify-content-center"
+    *ngFor="let resume of this.filtered"
+    [resume]="resume"
+  ></app-single-resume>
+</div>
+<div *ngIf="this.filtered.length < 1" class="row justify-content-center">
+  <div class="col-sm-8 text-center">
+    <img
+      src="https://image.flaticon.com/icons/svg/927/927561.svg"
+      width="100"
+    />
+    <h3 class="mt-5">{{ this.uiBlocks.NO_TEXT_RESULTS }}</h3>
+    <button
+      class="col-sm-6 btn mt-5 btn-info rounded-pill"
+      [routerLink]="['/articles']"
+    >
+      {{ this.uiBlocks.SEARCH_IN_ARTICLES }}
+    </button>
+  </div>
+</div>

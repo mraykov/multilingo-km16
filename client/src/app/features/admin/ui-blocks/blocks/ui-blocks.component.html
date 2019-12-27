@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12">
+      <h1 class="h3">{{ this.uiBlocks.UI_BLOCKS }}</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <app-search class="col-sm-6 mb-3" (search)="this.searchBlock($event)">
+    </app-search>
+  </div>
+  <div class="row justify-content-center">
+    <form [formGroup]="createUIForm" class="col-sm-12">
+      <div class="row justify-content-center mb-4">
+        <h2 class="h3 text-center">{{ this.uiBlocks.CREATE_UI_BLOCK }}</h2>
+      </div>
+
+      <div class="row justify-content-center align-items-center">
+        <div class="col-sm-4">
+          <input
+            formControlName="key"
+            type="text"
+            class="form-control"
+            placeholder="{{ this.uiBlocks.ENTER_KEY_VALUE }}"
+          />
+          <span
+            *ngIf="!!createUIForm.controls.key?.errors?.required"
+            class="position-absolute"
+            >{{ this.uiBlocks.KEY_FIELD_REQUIRED }}</span
+          >
+        </div>
+        <div class="col-sm-4">
+          <input
+            formControlName="content"
+            type="text"
+            class="form-control"
+            placeholder="{{ this.uiBlocks.ENTER_VALUE }}"
+          />
+          <span
+            *ngIf="!!createUIForm.controls.content?.errors?.required"
+            class="position-absolute"
+            >{{ this.uiBlocks.VALUE_FIELD_REQUIRED }}</span
+          >
+        </div>
+        <div class="col-sm-1 text-center">
+          <button class="btn btn-info" (click)="addUiBlock()">
+            {{ this.uiBlocks.BUTTON_ADD }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row mt-5">
+    <app-blocks-info
+      *ngFor="let block of this.filtered"
+      [block]="block"
+      (saveBlock)="save($event)"
+      class="col-sm-6 mt-3 d-flex justify-content-center"
+    ></app-blocks-info>
+  </div>
+</div>

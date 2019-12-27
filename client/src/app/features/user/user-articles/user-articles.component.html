@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12">
+      <h1 class="h3">{{ this.uiBlocks.MY_ARTICLES }}</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <app-search
+      class="col-sm-6"
+      (search)="this.searchArticle($event)"
+    ></app-search>
+  </div>
+  <div *ngFor="let article of this.filtered">
+    <div
+      class="row mt-2 mx-5 border border-info border-top-0 border-left-0 border-right-0 align-items-center container-hover"
+    >
+      <div class="col-sm-5 text-center mb-3">
+        {{ this.article.title.text }}
+      </div>
+      <div class="col-sm-7 text-center">
+        <button
+          class="btn border border-success btn-outline-success rounded-pill mb-3"
+          (click)="this.navigateArticle(article)"
+        >
+          {{ this.uiBlocks.OPEN_CURRENT }}
+        </button>
+        <button
+          class="btn border border-info btn-outline-info rounded-pill mb-3"
+          (click)="this.openModal(allVersionsModal, 'xl', article)"
+        >
+          {{ this.uiBlocks.SHOW_ALL_VERSIONS }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Versions Modal Start -->
+
+    <ng-template #allVersionsModal let-modal>
+      <div class="modal-header text-primary align-items-center">
+        <h6 class="modal-title">{{ this.article.title.text }}</h6>
+        <button
+          type="button"
+          class="btn"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-light">
+        <div>
+          <div class="row custom-titles mb-2">
+            <div class="col-2 col-md-2">{{ this.uiBlocks.TITLE }}</div>
+            <div class="col-2 col-md-1 text-center">{{ this.uiBlocks.VERSION }}</div>
+            <div class="col-2 col-md-1 text-center">{{ this.uiBlocks.STATUS }}</div>
+
+            <div class="col-2 col-md-2 text-center">
+              {{ this.uiBlocks.PUBLISHED_ON }}
+            </div>
+            <div class="col-4 col-md-6 text-center">{{ this.uiBlocks.ACTIONS }}</div>
+          </div>
+          <div
+            *ngFor="let version of this.versions"
+            class="row justify-content-between pt-2 align-items-center"
+          >
+            <div class="col-3 col-md-2">
+              {{ version.title.text }}
+            </div>
+            <div class="col-1 col-md-1 text-center">
+              {{ this.version.version }}
+            </div>
+            <div class="col-1 col-md-1 d-flex justify-content-center">
+              <span *ngIf="version.isCurrent" class="badge badge-success">{{
+                this.uiBlocks.CURRENT
+              }}</span>
+              <span *ngIf="!version.isCurrent" aria-hidden="true"></span>
+            </div>
+            <div class="col-2 col-md-2 text-center">{{ version.datePublish }}</div>
+            <div class="col-5 col-md-6">
+              <div class="row d-flex justify-content-end">
+                <button
+                  class="col-6 col-md-3 btn btn-sm border border-info btn-outline-info rounded-pill"
+                  (click)="this.navigateArticle(version)"
+                >
+                  {{ this.uiBlocks.OPEN_VERSION }}
+                </button>
+                <button
+                  class="col-6 col-md-3 btn btn-sm border border-success btn-outline-success rounded-pill"
+                  (click)="this.makeCurrent(version)"
+                >
+                  {{ this.uiBlocks.MAKE_CURRENT }}
+                </button>
+                <button
+                  class="col-6 col-md-3 btn btn-sm border border-danger btn-outline-danger rounded-pill"
+                  (click)="this.openModal(deleteModal, 'sm')"
+                >
+                  {{ this.uiBlocks.DELETE_VERSION }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Delete Confirmation Modal Start -->
+
+            <ng-template #deleteModal let-modal>
+              <div class="modal-header text-primary align-items-center">
+                <h6 class="modal-title">{{ this.uiBlocks.DELETE_VERSION }}</h6>
+                <button
+                  type="button"
+                  class="btn"
+                  aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body bg-light d-flex justify-content-between">
+                <div>
+                  <p>{{ this.uiBlocks.NO_UNDO }}</p>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-sm border border-danger rounded-pill btn-outline-danger"
+                    (click)="this.delete(version)"
+                    (click)="modal.close('Close click')"
+                  >
+                    {{ this.uiBlocks.DELETE }}
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+
+            <!-- Delete Confirmation Modal End-->
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Versions Modal End -->
+  </div>
+  <div *ngIf="this.filtered.length < 1" class="row justify-content-center">
+    <div class="col-sm-8 text-center">
+      <img
+        src="https://image.flaticon.com/icons/svg/927/927561.svg"
+        width="100"
+      />
+      <h3 class="mt-5">{{ this.uiBlocks.NO_ARTICLES }}</h3>
+    </div>
+  </div>
+</div>

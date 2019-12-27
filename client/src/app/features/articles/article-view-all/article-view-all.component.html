@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12">
+      <h1 class="h3">{{ this.uiBlocks.ALL_ARTICLES || 'All articles' }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <app-search
+      class="col-8 offset-2 mt-5"
+      (search)="this.filterArticles($event)"
+    ></app-search>
+  </div>
+  <div class="row mt-4 justify-content-center">
+    <h1 class="h5 text-muted">
+      {{ this.uiBlocks.SEARCH_IN_ARTICLES || 'Search in all articles' }}
+    </h1>
+  </div>
+    <div class="row justify-content-center mt-5">
+      <app-single-resume
+        class="card-deck col-sm-4 d-flex justify-content-center"
+        *ngFor="let resume of this.filtered"
+        [resume]="resume"
+      >
+      </app-single-resume>
+    </div>
+    <div *ngIf="this.filtered.length < 1" class="row justify-content-center">
+      <div class="col-sm-8 text-center">
+        <img
+          src="https://image.flaticon.com/icons/svg/927/927561.svg"
+          width="100"
+        />
+        <h3 class="mt-5">
+          {{
+            this.uiBlocks.NO_TEXT_RESULTS ||
+              'The text you are searching for is not here...'
+          }}
+        </h3>
+        <button class="col-sm-6 btn mt-5 btn-info rounded-pill">
+          {{ this.uiBlocks.SEARCH_IN_ARTICLES || 'Search in all articles' }}
+        </button>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-sm-12">
+        <h1 class="h3">{{ this.uiBlocks.USERS }}</h1>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <app-search
+      class="col-8 mt-4"
+      (search)="this.searchUser($event)"
+    ></app-search>
+  </div>
+  <div class="row justify-content-start">
+    <app-user-info
+      *ngFor="let user of this.filtered"
+      [user]="user"
+      [userLoged]="this.userLoged"
+      class="col-sm-6 mt-4"
+      (deleteUser)="this.delete($event)"
+      (updateRole)="this.updateRole($event)"
+    ></app-user-info>
+  </div>
+</div>
