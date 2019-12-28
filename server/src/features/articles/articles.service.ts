@@ -286,10 +286,7 @@ export class ArticlesService {
     return translations[0];
   }
 
-  public async deleteArticle(
-    articleId: number,
-    user: User,
-  ): Promise<{ msg: string }> {
+  public async deleteArticle(articleId: number, user: User): Promise<{msg: string}> {
     const found = await this.articleVersionsRepository.findOne({
       where: { id: articleId, isDeleted: false },
     });
@@ -306,10 +303,6 @@ export class ArticlesService {
         order: { version: 'DESC' },
       });
       const current = articles[0];
-      if (!current) {
-        await this.articleVersionsRepository.save(found);
-        return { msg: 'The version was deleted successfully!' };
-      }
       current.isCurrent = true;
       await this.articleVersionsRepository.save(found);
       await this.articleVersionsRepository.save(current);

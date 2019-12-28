@@ -57,7 +57,7 @@ export class TranslationsInfoModalComponent implements OnInit, OnDestroy {
     this.modalService.dismissAll();
   }
 
-  private rows() {
+  public rows() {
     return this.translation.translation.length <= 50 ? 1 : Math.floor(this.translation.translation.length / 50);
   }
 

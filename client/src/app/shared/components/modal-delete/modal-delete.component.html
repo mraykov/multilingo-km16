@@ -1,6 +1,6 @@
  <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">{{ this.uiBlocks.DELETE || 'Delete' }}</h4>
-    <button class="close" (click)="close('Cross click')">
+    <button class="close" (click)="close()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -9,6 +9,6 @@
       <p class="">{{ this.uiBlocks.MSG_DELETE_MODAL || 'You can not undo this action!' }}</p>
     </div>
     <div>
-      <button class="btn btn-sm border border-danger rounded-pill btn-outline-danger" (click)="delete('Save click')">{{ this.uiBlocks.DELETE || 'Delete' }}</button>
+      <button class="btn btn-sm border border-danger rounded-pill btn-outline-danger" (click)="delete()">{{ this.uiBlocks.DELETE || 'Delete' }}</button>
     </div>
   </div>

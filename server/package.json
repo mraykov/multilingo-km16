@@ -20,23 +20,23 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ./ormconfig.ts",
-    "typeorm:migrate": "npm run typeorm -- migration:generate -n",
+    "typeorm:migrate": "npm run typeorm -- migration:generate -n initial",
     "typeorm:run": "npm run typeorm migration:run",
-    "seed-users-roles": "ts-node ./src/database/seed/seed-users-roles.ts",
-    "seed-translations": "ts-node ./src/database/seed/seed-translations.ts",
-    "seed-articles": "ts-node ./src/database/seed/seed-articles.ts",
-    "seed-languages": "ts-node ./src/database/seed/seed-languages.ts",
-    "seed-hack": "ts-node ./src/database/seed/seed-hack.ts",
-    "seed-blocks": "ts-node ./src/database/seed/seed-ui-blocks.ts",
-    "seed": "npm run seed-users-roles && npm run seed-languages && npm run seed-articles && npm run seed-translations && npm run seed-blocks",
-    "clean": "ts-node ./src/database/seed/clean-users-roles.ts",
-    "clean:blocks": "ts-node ./src/database/seed/clean-blocks.ts"
+    "seed:users": "ts-node ./src/database/seed/seed-users-roles.ts",
+    "seed:translations": "ts-node ./src/database/seed/seed-translations.ts",
+    "seed:articles": "ts-node ./src/database/seed/seed-articles.ts",
+    "seed:languages": "ts-node ./src/database/seed/seed-languages.ts",
+    "seed:blocks": "ts-node ./src/database/seed/seed-ui-blocks.ts",
+    "seed": "npm run seed:users && npm run seed:languages && npm run seed:articles && npm run seed:translations && npm run seed:blocks",
+    "clean:blocks": "ts-node ./src/database/seed/clean-blocks.ts",
+    "clean:all": "ts-node ./src/database/seed/clean-all.ts"
   },
   "dependencies": {
     "@google-cloud/storage": "^4.1.2",
     "@google-cloud/translate": "^5.0.2",
     "@hapi/joi": "^16.1.7",
     "@nestjs/common": "^6.7.2",
+    "@nestjs/config": "0.0.7",
     "@nestjs/core": "^6.7.2",
     "@nestjs/jwt": "^6.1.1",
     "@nestjs/passport": "^6.1.0",
@@ -62,7 +62,9 @@
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
     "swagger-ui-express": "^4.1.2",
-    "typeorm": "^0.2.20"
+    "ts-node": "^8.4.1",
+    "typeorm": "^0.2.20",
+    "yn": "^4.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",
@@ -81,7 +83,6 @@
     "supertest": "^4.0.2",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.1.1",
-    "ts-node": "^8.4.1",
     "tsconfig-paths": "^3.9.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3"

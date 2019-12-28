@@ -4,17 +4,17 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../../features/users/users.service';
 import { ShowUserDTO } from '../../models/users/show-user.dto';
 import { User } from '../../database/entities/user.entity';
-import { ConfigService } from '../../config/config.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly usersService: UsersService,
-    configService: ConfigService,
+    private readonly configService: ConfigService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: configService.jwtSecret,
+      secretOrKey: configService.get('JWT_SECRET'),
       ignoreExpiration: false,
     });
   }

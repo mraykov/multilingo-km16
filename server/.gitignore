@@ -1,6 +1,6 @@
 # compiled output
 /node_modules
-/dist
+
 # Logs
 logs
 *.log
@@ -33,9 +33,9 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # ormconfig config
+/database/migration
 */common/config.*
-*ormconfig.*
-/migration
+google-credentials.json
 
 # .env files
-*.env
+.env

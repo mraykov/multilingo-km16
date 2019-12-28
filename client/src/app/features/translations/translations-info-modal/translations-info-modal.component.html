@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title" id="modal-basic-title">{{ this.uiBlocks.TRANSLATION || 'Translation' }}</h4>
-  <button class="btn" (click)="close('Cross click')">
+  <button class="btn" (click)="close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -13,5 +13,5 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button class="btn col-sm-2 border border-info rounded-pill btn-outline-info" (click)="save('Save click')">{{ this.uiBlocks.SAVE || 'Save' }}</button>
+  <button class="btn col-sm-2 border border-info rounded-pill btn-outline-info" (click)="save()">{{ this.uiBlocks.SAVE || 'Save' }}</button>
 </div>

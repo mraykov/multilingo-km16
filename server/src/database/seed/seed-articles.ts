@@ -12,8 +12,8 @@ const main = async () => {
   const userRepo = connection.getRepository(User);
   const languageRepo = connection.getRepository(Language);
 
-  const contributorUser = await userRepo.findOne({ where: { username: 'Kristian' } });
-  const adminUser = await userRepo.findOne({ where: { username: 'Stoyan' } });
+  const contributorUser = await userRepo.findOne({ where: { username: 'kristian' } });
+  const adminUser = await userRepo.findOne({ where: { username: 'administrator' } });
   const enLang = await languageRepo.findOne({ where: { language: 'en' } });
 
   // First article about philosophy #1

@@ -20,26 +20,26 @@ export class UiBlocksController {
   constructor(private readonly uiService: UiBlocksService) {}
 
   @Get()
-  public getLanguageSpecificBlock(@Query('language') language: string) {
-    return this.uiService.getLanguageSpecificBlock(language);
+  public async getLanguageSpecificBlock(@Query('language') language: string) {
+    return await this.uiService.getLanguageSpecificBlock(language);
   }
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
-  public addNewBlock(
+  public async addNewBlock(
     @Body(new ValidationPipe({ whitelist: true, transform: true }))
     body: AddUiBlockDTO,
   ) {
-    return this.uiService.addNewBlock(body);
+    return await this.uiService.addNewBlock(body);
   }
 
   @Patch()
   @UseInterceptors(new TransformInterceptor(ShowBlockDTO))
   @UseGuards(AuthGuard('jwt'))
-  public updateBlock(
+  public async updateBlock(
     @Body(new ValidationPipe({ whitelist: true, transform: true }))
     body: AddUiBlockDTO,
   ): Promise<ShowBlockDTO> {
-    return this.uiService.updateBlock(body);
+    return await this.uiService.updateBlock(body);
   }
 }

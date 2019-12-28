@@ -31,38 +31,38 @@ const main = async () => {
     editor = await roleRepo.save(editor);
   }
 
-  let userAdmin = await userRepo.findOne({ where: { username: 'Stoyan' } });
+  let userAdmin = await userRepo.findOne({ where: { username: 'administrator' } });
   if (!userAdmin) {
     userAdmin = new User();
-    userAdmin.username = 'Stoyan';
-    userAdmin.email = 'stoyan@admin.com';
-    userAdmin.firstName = 'Stoyan';
-    userAdmin.lastName = 'Doll';
-    userAdmin.password = await bcrypt.hash('wel1234', 10);
+    userAdmin.username = 'administrator';
+    userAdmin.email = 'admin@admin.com';
+    userAdmin.firstName = 'Admin';
+    userAdmin.lastName = 'Super';
+    userAdmin.password = await bcrypt.hash('admin007', 10);
     userAdmin.role = admin;
     await userRepo.save(userAdmin);
   }
 
-  let userContributor = await userRepo.findOne({ where: { username: 'Kristian' } });
+  let userContributor = await userRepo.findOne({ where: { username: 'kristian' } });
   if (!userContributor) {
     userContributor = new User();
-    userContributor.username = 'Kristian';
+    userContributor.username = 'kristian';
     userContributor.email = 'kris@contributor.com';
-    userContributor.firstName = 'Kristian';
+    userContributor.firstName = 'Kris';
     userContributor.lastName = 'Hadzhiev';
-    userContributor.password = await bcrypt.hash('kris1234', 10);
+    userContributor.password = await bcrypt.hash('kristian03', 10);
     userContributor.role = contributor;
     await userRepo.save(userContributor);
   }
 
-  let userEditor = await userRepo.findOne({ where: { username: 'Martin' } });
+  let userEditor = await userRepo.findOne({ where: { username: 'martin' } });
   if (!userEditor) {
     userEditor = new User();
-    userEditor.username = 'Martin';
+    userEditor.username = 'martin';
     userEditor.email = 'martin@editor.com';
     userEditor.firstName = 'Martin';
     userEditor.lastName = 'Pavlov';
-    userEditor.password = await bcrypt.hash('martin1234', 10);
+    userEditor.password = await bcrypt.hash('martin02', 10);
     userEditor.role = editor;
     await userRepo.save(userEditor);
   }

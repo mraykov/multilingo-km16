@@ -74,7 +74,7 @@ export class UserArticlesComponent implements OnInit, OnDestroy {
     this.modalService.dismissAll();
   }
 
-  public openModal(content, size: modalSize, article?: ShowArticleDTO) {
+  public openModal(content, size, article?: ShowArticleDTO) {
     if (article) {
       this.articleService
         .getArticleVersions(article.id, this.language)

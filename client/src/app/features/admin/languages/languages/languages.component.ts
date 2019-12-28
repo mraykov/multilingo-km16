@@ -6,6 +6,7 @@ import { AdminService } from '../../admin.service';
 import { NotificatorService } from '../../../../core/services/notificator.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-languages',
@@ -28,7 +29,9 @@ export class LanguagesComponent implements OnInit, OnDestroy {
     private readonly adminService: AdminService,
     private readonly toastr: NotificatorService,
     private readonly fb: FormBuilder,
+    private readonly config: NgbTypeaheadConfig
   ) {
+    config.showHint = true;
   }
 
   ngOnInit() {
